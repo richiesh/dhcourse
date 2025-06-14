@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="数智人文与翻译传播微专业 - 融合语言文学、人工智能、数据科学与跨文化传播的创新型交叉学科项目">
+    <title>数智人文与翻译传播微专业</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- 自定义Tailwind配置 -->
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        'apple-blue': '#0062ff', // 更新为更亮的科技蓝色
+                        'apple-gray': '#8E8E93',
+                        'apple-white': '#e6f1ff', // 更新为亮白色
+                        'apple-dark': '#05101f', // 更新为深蓝黑色
+                        'tech-cyan': '#00e5ff', // 新增亮青色
+                    },
+                    fontFamily: {
+                        sans: ['-apple-system', 'BlinkMacSystemFont', 'SF Pro Text', 'Helvetica Neue', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                        'glow': 'glow 2s ease-in-out infinite alternate',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-10px)' },
+                        },
+                        glow: {
+                            '0%': { textShadow: '0 0 5px rgba(0, 229, 255, 0.2)' },
+                            '100%': { textShadow: '0 0 15px rgba(0, 229, 255, 0.5)' },
+                        }
+                    },
+                    boxShadow: {
+                        'tech': '0 0 15px rgba(0, 229, 255, 0.3)',
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- 自定义CSS -->
+    <link rel="stylesheet" href="styles/main.css">
+    <!-- QRCode.js库 - 延迟加载 -->
+    <script src="https://cdn.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js" defer></script>
+    <!-- Particles.js库 - 延迟加载 -->
+    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js" defer></script>
+</head>
+<body class="bg-apple-dark text-apple-white min-h-screen">
+    <!-- 粒子背景 -->
+    <div id="particles-js" class="fixed inset-0 z-0"></div>
+
+    <div class="relative z-10">
+        <!-- 头部区域 -->
+        <header class="container mx-auto py-16 px-4 lg:px-8">
+            <div class="text-center max-w-4xl mx-auto">
+                <h1 class="text-4xl md:text-6xl font-bold mb-4 text-apple-white tracking-tight tech-glow animate-glow">
+                    ✨ 数智人文与翻译传播微专业
+                </h1>
+                <div class="h-px w-24 bg-apple-blue mx-auto my-8 shadow-tech"></div>
+                <p class="text-lg md:text-xl leading-relaxed mb-8 text-blue-200 max-w-3xl mx-auto">
+                    立足于数字时代语言服务与国际传播领域的深度融合，聚焦翻译行业智能化升级与跨文化传播需求，融合语言文学、人工智能、数据科学与跨文化传播等多学科资源，是一个面向未来的创新型交叉学科项目。
+                </p>
+                <div class="flex flex-wrap justify-center gap-6 my-10">
+                    <div class="flex items-center tech-glow">
+                        <span class="text-2xl mr-2">🌐</span>
+                        <span>语言转换</span>
+                    </div>
+                    <div class="flex items-center tech-glow">
+                        <span class="text-2xl mr-2">🌍</span>
+                        <span>跨文化传播</span>
+                    </div>
+                    <div class="flex items-center tech-glow">
+                        <span class="text-2xl mr-2">🤖</span>
+                        <span>智能技术</span>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- 特色与核心能力 -->
+        <section class="py-16 bg-apple-dark">
+            <div class="container mx-auto px-4 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-apple-white tech-glow">项目特色与核心能力</h2>
+                
+                <!-- 项目特色 -->
+                <div class="mb-16">
+                    <h3 class="text-2xl font-semibold mb-8 text-apple-white flex items-center justify-center tech-glow">
+                        <span class="text-2xl mr-2">🌟</span>
+                        项目特色
+                    </h3>
+                    <!-- 修改这里，去掉多余的grid嵌套，直接使用features-list作为主容器 -->
+                    <div id="features-list" class="space-y-6 max-w-3xl mx-auto">
+                        <!-- 特色列表将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+                
+                <!-- 核心能力 -->
+                <div>
+                    <h3 class="text-2xl font-semibold mb-8 text-apple-white flex items-center justify-center tech-glow">
+                        <span class="text-2xl mr-2">💪</span>
+                        核心能力
+                    </h3>
+                    <div class="grid md:grid-cols-2 gap-8" id="core-competencies">
+                        <!-- 核心能力将通过JavaScript动态生成 -->
+                    </div>
+                </div>
+
+                <!-- 就业前景 -->
+                <div class="mt-16 p-8 rounded-2xl bg-[rgba(7,23,48,0.7)] shadow-tech tech-border-glow backdrop-blur">
+                    <h3 class="text-2xl font-semibold mb-4 text-apple-white flex items-center tech-glow">
+                        <span class="text-2xl mr-2">📈</span>
+                        就业前景
+                    </h3>
+                    <p id="career-prospect" class="text-blue-200 leading-relaxed"></p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 修读对象与条件 -->
+        <section class="py-16">
+            <div class="container mx-auto px-4 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-apple-white tech-glow">修读对象与条件</h2>
+                
+                <div class="grid lg:grid-cols-2 gap-8">
+                    <!-- 修读对象 -->
+                    <div class="apple-border p-8 shadow-tech">
+                        <h3 class="text-2xl font-semibold mb-4 text-apple-white flex items-center tech-glow">
+                            <span class="text-2xl mr-2">👨‍🎓</span>
+                            修读对象
+                        </h3>
+                        <p id="enrollment-target" class="text-blue-200 leading-relaxed"></p>
+                    </div>
+                    
+                    <!-- 修读条件 -->
+                    <div class="apple-border p-8 shadow-tech">
+                        <h3 class="text-2xl font-semibold mb-4 text-apple-white flex items-center tech-glow">
+                            <span class="text-2xl mr-2">📋</span>
+                            修读条件
+                        </h3>
+                        <ul id="enrollment-conditions" class="list-disc pl-5 space-y-3 text-blue-200">
+                            <!-- 条件列表将通过JavaScript动态生成 -->
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- 招生人数与证书 -->
+                <div class="grid lg:grid-cols-2 gap-8 mt-8">
+                    <div class="apple-border p-8 shadow-tech">
+                        <h3 class="text-2xl font-semibold mb-4 text-apple-white flex items-center tech-glow">
+                            <span class="text-2xl mr-2">👥</span>
+                            招生人数
+                        </h3>
+                        <p id="enrollment-number" class="text-blue-200 leading-relaxed"></p>
+                    </div>
+                    
+                    <div class="apple-border p-8 shadow-tech">
+                        <h3 class="text-2xl font-semibold mb-4 text-apple-white flex items-center tech-glow">
+                            <span class="text-2xl mr-2">🎓</span>
+                            证书授予
+                        </h3>
+                        <p id="certification" class="text-blue-200 leading-relaxed"></p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 课程卡片 -->
+        <section class="py-16 bg-apple-dark">
+            <div class="container mx-auto px-4 lg:px-8">
+                <h2 class="text-3xl md:text-4xl font-bold mb-12 text-center text-apple-white tech-glow">核心课程</h2>
+                
+                <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8" id="course-cards">
+                    <!-- 课程卡片将通过JavaScript动态生成 -->
+                </div>
+            </div>
+        </section>
+
+        <!-- 二维码咨询区域 -->
+        <section class="py-16">
+            <div class="container mx-auto px-4 lg:px-8 text-center">
+                <h2 class="text-3xl md:text-4xl font-bold mb-6 text-apple-white tech-glow">联系我们</h2>
+                <p class="text-blue-200 mb-8 max-w-xl mx-auto">如有疑问，欢迎扫描下方二维码咨询</p>
+                
+                <div class="flex flex-col items-center justify-center p-8 apple-border inline-block mx-auto shadow-tech backdrop-blur">
+                    <h3 class="text-xl font-semibold mb-4 text-apple-white">📱 扫码了解更多</h3>
+                    <div id="qrcode" class="mx-auto mb-4"></div>
+                    <p class="text-sm text-blue-200">微专业最新招生信息</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 页脚 -->
+        <footer class="py-8 text-apple-white text-center border-t border-[#0062ff33]">
+            <div class="container mx-auto px-4">
+                <p>&copy; 2025 数智人文与翻译传播微专业 All Rights Reserved</p>
+            </div>
+        </footer>
+    </div>
+
+    <!-- 自定义JavaScript -->
+    <script src="js/particles-config.js"></script>
+    <script src="js/data.js"></script>
+    <script src="js/qrcode.js"></script>
+    <script src="js/main.js"></script>
+</body>
+</html>
