@@ -73,10 +73,24 @@ function generateQRCode(text, elementId) {
 // 这个函数将用于生成微专业的招生咨询二维码
 function createProgramQRCode() {
   console.log('创建微专业二维码');
-  const qrText = "https://example.com/digital-humanities-program";
+  const qrText = "https://www.zyufl.edu.cn/114";
   generateQRCode(qrText, "qrcode");
+}
+
+// 生成微信公众号二维码
+function createWeChatQRCode() {
+  console.log('创建微信公众号二维码');
+  const wechatUrl = "https://mp.weixin.qq.com/s/your_wechat_article"; // 替换为实际公众号链接
+  generateQRCode(wechatUrl, "qrcode-wechat");
 }
 
 // 将函数暴露给window对象
 window.generateQRCode = generateQRCode;
 window.createProgramQRCode = createProgramQRCode;
+window.createWeChatQRCode = createWeChatQRCode;
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (document.getElementById('qrcode-wechat')) {
+    createWeChatQRCode();
+  }
+});

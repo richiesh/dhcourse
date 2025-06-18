@@ -271,3 +271,39 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #0062ff !important; /* 科技蓝横线 */
     box-shadow: 0 0 10px rgba(0, 229, 255, 0.4); /* 发光效果 */
 }
+
+/* ================== 项目图片轮播 ================== */
+#project-carousel {
+    background: rgba(7, 23, 48, 0.85);
+    border-radius: 1.5rem;
+    box-shadow: 0 4px 24px rgba(0,229,255,0.10);
+    position: relative;
+    overflow: hidden;
+}
+#project-carousel .w-full.h-64 {
+    background: linear-gradient(120deg, rgba(0,99,255,0.10), rgba(0,229,255,0.08));
+}
+#project-carousel img {
+    box-shadow: 0 2px 16px rgba(0,229,255,0.10);
+    border-radius: 1.25rem;
+    background: #0a1a2f;
+}
+#project-carousel button {
+    outline: none;
+    border: none;
+    box-shadow: 0 2px 8px rgba(0,229,255,0.10);
+}
+#carousel-indicators span {
+    display: inline-block;
+    margin: 0 3px;
+    border: 2px solid rgba(0,229,255,0.25);
+    transition: background 0.3s, box-shadow 0.3s;
+}
+#carousel-indicators .bg-tech-cyan {
+    box-shadow: 0 0 8px #00e5ff, 0 0 2px #00e5ff;
+    border-color: #00e5ff;
+}
+#carousel-indicators .bg-apple-gray {
+    border-color: rgba(0,99,255,0.25);
+}
+/* ================== 轮播结束 ================== */

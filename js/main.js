@@ -414,3 +414,75 @@ catch (error) {
 console.assert(typeof initializePageData === 'function', 'initializePageData function exists');
 console.assert(typeof createGlassCourseCards === 'function', 'createGlassCourseCards function exists');
 console.assert(typeof initializeParticles === 'function', 'initializeParticles function exists');
+
+// ================== 项目图片轮播 ==================
+(function initializeProjectCarousel() {
+  const images = [
+    'images/微信图片_20250618015618.png',
+    'images/微信图片_20250618015601.png',
+    'images/微信图片_20250618015552.png',
+    'images/微信图片_20250618015544.png',
+    'images/微信图片_20250618015539.png',
+    'images/微信图片_20250618015533.png',
+    'images/微信图片_20250618015523.png',
+    'images/微信图片_20250618015516.png',
+    'images/微信图片_20250618015508.png',
+    'images/微信图片_20250618015503.png',
+    'images/微信图片_20250618015455.png',
+    'images/微信图片_20250618015451.png',
+    'images/微信图片_20250618015439.png',
+    'images/微信图片_20250618015431.png',
+    'images/微信图片_20250618015414.png',
+    'images/微信图片_20250618015407.png',
+    'images/微信图片_20250618015402.png',
+    'images/微信图片_20250618015353.png',
+    'images/微信图片_20250618015343.png',
+    'images/微信图片_20250618015329.png',
+    'images/微信图片_20250618015254.png',
+  ];
+  let current = 0;
+  let timer = null;
+
+  function showImage(idx) {
+    const img = document.getElementById('carousel-image');
+    if (!img) return;
+    img.src = images[idx];
+    updateIndicators(idx);
+  }
+
+  function updateIndicators(idx) {
+    const indicators = document.getElementById('carousel-indicators');
+    if (!indicators) return;
+    indicators.innerHTML = '';
+    images.forEach((_, i) => {
+      const dot = document.createElement('span');
+      dot.className = 'w-3 h-3 rounded-full cursor-pointer transition-all ' + (i === idx ? 'bg-tech-cyan shadow-tech' : 'bg-apple-gray opacity-60');
+      dot.onclick = () => { current = i; showImage(current); resetTimer(); };
+      indicators.appendChild(dot);
+    });
+  }
+
+  function prev() {
+    current = (current - 1 + images.length) % images.length;
+    showImage(current);
+    resetTimer();
+  }
+  function next() {
+    current = (current + 1) % images.length;
+    showImage(current);
+    resetTimer();
+  }
+  function resetTimer() {
+    if (timer) clearInterval(timer);
+    timer = setInterval(next, 4000);
+  }
+
+  document.addEventListener('DOMContentLoaded', function() {
+    if (!document.getElementById('project-carousel')) return;
+    document.getElementById('carousel-prev').onclick = prev;
+    document.getElementById('carousel-next').onclick = next;
+    showImage(current);
+    resetTimer();
+  });
+})();
+// ================== 轮播结束 ==================
