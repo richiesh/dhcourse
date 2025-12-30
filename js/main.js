@@ -471,6 +471,7 @@ console.assert(typeof initializeParticles === 'function', 'initializeParticles f
       // 注意：直接修改src可能导致闪烁，这里简化处理
       if (!videoElement.src.endsWith(item.src)) {
         videoElement.src = item.src;
+        videoElement.load();
       }
     } else {
       // 显示图片，隐藏视频
