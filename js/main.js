@@ -14,31 +14,30 @@ document.addEventListener('DOMContentLoaded', () => {
   // 记录DOM加载时间
   perfMetrics.DOMLoaded = performance.now() - perfMetrics.startTime;
   console.log('DOM加载完成');
-  
+
   // 确保数据已加载 - 将解构移到事件处理函数内部
   try {
     // 从window对象获取数据
     const { programData, qrCodeData, visualElements } = window;
-    
+
     if (!programData) {
       console.error('错误：programData未加载，请检查data.js是否正确引入');
       displayErrorMessage('课程数据加载失败，请刷新页面重试。');
       return;
     }
-    
+
     console.log('数据加载成功：', {
       hasProgramData: !!programData,
       hasQRCodeData: !!qrCodeData,
       hasVisualElements: !!visualElements
     });
-    
+
     // 课程Emoji映射表
     const courseEmojis = {
       "数智人文方法与实践": "📊",
-      "智能翻译技术与应用": "🤖",
+      "大语言模型与智能翻译技术": "🤖",
       "数智翻译与国际传播": "🌐",
       "数智语料库创建与应用": "📚",
-      "数智译后编辑与质量评估": "✅",
       "数智视频创作与国际传播": "🎬"
     };
 
@@ -49,30 +48,30 @@ document.addEventListener('DOMContentLoaded', () => {
       "智能技术应用能力": "💻",
       "数据分析与研究能力": "📈"
     };
-    
+
     // 初始化页面数据
     initializePageData(programData, courseEmojis, competencyEmojis);
-    
+
     // 初始化粒子背景（延迟加载）
     setTimeout(() => {
       initializeParticles();
     }, 300); // 减少延迟，更快加载粒子效果
-    
+
     // 生成二维码
     if (typeof window.createProgramQRCode === 'function') {
       window.createProgramQRCode();
     }
-    
+
     // 初始化响应式布局
     initializeResponsiveLayout();
-    
+
     // 添加滚动动画效果
     initializeScrollAnimations();
   } catch (error) {
     console.error('初始化失败:', error);
     displayErrorMessage('页面加载失败，请刷新页面重试。');
   }
-  
+
   // 注册页面完全加载的事件
   window.addEventListener('load', () => {
     perfMetrics.pageFullyLoaded = performance.now() - perfMetrics.startTime;
@@ -91,7 +90,7 @@ function displayErrorMessage(message) {
     <p class="font-bold">加载错误</p>
     <p>${message}</p>
   `;
-  
+
   // 插入到页面顶部
   const firstSection = document.querySelector('section');
   if (firstSection && firstSection.parentNode) {
@@ -106,12 +105,12 @@ function displayErrorMessage(message) {
  */
 function initializePageData(programData, courseEmojis, competencyEmojis) {
   console.log('初始化页面数据');
-  
+
   if (!programData) {
     console.error('Program data not found');
     return;
   }
-  
+
   // 填充特色列表
   const featuresListElement = document.getElementById('features-list');
   if (featuresListElement && programData.basicInfo && programData.basicInfo.features) {
@@ -132,14 +131,14 @@ function initializePageData(programData, courseEmojis, competencyEmojis) {
       hasFeatures: !!(programData && programData.basicInfo && programData.basicInfo.features)
     });
   }
-  
+
   // 填充核心能力
   const coreCompetenciesElement = document.getElementById('core-competencies');
   if (coreCompetenciesElement && programData.basicInfo && programData.basicInfo.coreCompetencies) {
     console.log('填充核心能力', programData.basicInfo.coreCompetencies.length);
     programData.basicInfo.coreCompetencies.forEach(competency => {
       const emoji = competencyEmojis[competency.title] || "💡";
-      
+
       const competencyElement = document.createElement('div');
       competencyElement.className = `p-8 rounded-2xl shadow-tech apple-border`;
       competencyElement.innerHTML = `
@@ -153,12 +152,12 @@ function initializePageData(programData, courseEmojis, competencyEmojis) {
     });
   } else {
     console.warn('核心能力元素或数据缺失', {
-      hasElement: !!coreCompetenciesElement, 
+      hasElement: !!coreCompetenciesElement,
       hasBasicInfo: !!(programData && programData.basicInfo),
       hasCoreCompetencies: !!(programData && programData.basicInfo && programData.basicInfo.coreCompetencies)
     });
   }
-  
+
   // 填充就业前景
   const careerElement = document.getElementById('career-prospect');
   if (careerElement && programData.basicInfo) {
@@ -167,7 +166,7 @@ function initializePageData(programData, courseEmojis, competencyEmojis) {
   } else {
     console.warn('就业前景元素或数据缺失');
   }
-  
+
   // 填充修读对象与条件
   const targetElement = document.getElementById('enrollment-target');
   if (targetElement && programData.enrollmentInfo) {
@@ -176,7 +175,7 @@ function initializePageData(programData, courseEmojis, competencyEmojis) {
   } else {
     console.warn('修读对象元素或数据缺失');
   }
-  
+
   const conditionsElement = document.getElementById('enrollment-conditions');
   if (conditionsElement && programData.enrollmentInfo && programData.enrollmentInfo.conditions) {
     console.log('填充修读条件', programData.enrollmentInfo.conditions.length);
@@ -189,7 +188,7 @@ function initializePageData(programData, courseEmojis, competencyEmojis) {
   } else {
     console.warn('修读条件元素或数据缺失');
   }
-  
+
   const numberElement = document.getElementById('enrollment-number');
   if (numberElement && programData.enrollmentInfo) {
     numberElement.textContent = programData.enrollmentInfo.enrollmentNumber;
@@ -197,7 +196,7 @@ function initializePageData(programData, courseEmojis, competencyEmojis) {
   } else {
     console.warn('招生人数元素或数据缺失');
   }
-  
+
   const certElement = document.getElementById('certification');
   if (certElement && programData.enrollmentInfo) {
     certElement.textContent = programData.enrollmentInfo.certification;
@@ -205,7 +204,7 @@ function initializePageData(programData, courseEmojis, competencyEmojis) {
   } else {
     console.warn('证书授予元素或数据缺失');
   }
-  
+
   // 创建新版知识卡片形式的课程展示
   createGlassCourseCards(programData, courseEmojis);
 }
@@ -215,33 +214,33 @@ function initializePageData(programData, courseEmojis, competencyEmojis) {
  */
 function createGlassCourseCards(programData, courseEmojis) {
   console.log('创建课程卡片');
-  
+
   const courseCardsElement = document.getElementById('course-cards');
-  
+
   if (!courseCardsElement) {
     console.error('找不到课程卡片容器元素');
     return;
   }
-  
+
   if (!programData || !programData.courses) {
     console.error('找不到课程数据');
     return;
   }
-  
+
   console.log('创建课程卡片，数量:', programData.courses.length);
-  
+
   // 清空现有内容
   courseCardsElement.innerHTML = '';
-  
+
   // 为每个课程创建卡片
   programData.courses.forEach((course, index) => {
     const emoji = courseEmojis[course.name] || "📚";
-    
+
     // 创建卡片容器元素
     const cardElement = document.createElement('div');
     cardElement.className = 'fade-in';
     cardElement.classList.add(`delay-${(index % 5 + 1) * 100}`); // 添加交错的动画延迟
-    
+
     // 创建卡片内容
     cardElement.innerHTML = `
       <div class="glass-card">
@@ -274,10 +273,10 @@ function createGlassCourseCards(programData, courseEmojis) {
         </div>
       </div>
     `;
-    
+
     courseCardsElement.appendChild(cardElement);
   });
-  
+
   console.log('课程卡片创建完成');
 }
 
@@ -286,17 +285,17 @@ function createGlassCourseCards(programData, courseEmojis) {
  */
 function initializeScrollAnimations() {
   console.log('初始化滚动动画');
-  
+
   // 获取所有需要动画的元素
   const animatedElements = document.querySelectorAll('.fade-in');
-  
+
   if (animatedElements.length === 0) {
     console.warn('没有找到需要动画的元素');
     return;
   }
-  
+
   console.log('找到需要动画的元素:', animatedElements.length);
-  
+
   // 创建IntersectionObserver实例
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -313,7 +312,7 @@ function initializeScrollAnimations() {
     threshold: 0.1, // 当10%的元素可见时触发
     rootMargin: '0px 0px -50px 0px' // 底部有50px的缓冲区
   });
-  
+
   // 观察所有动画元素
   animatedElements.forEach(el => {
     el.style.visibility = 'hidden'; // 初始设置为隐藏
@@ -326,7 +325,7 @@ function initializeScrollAnimations() {
  */
 function initializeParticles() {
   console.log('初始化粒子背景');
-  
+
   // 检查是否有particles-js库和配置
   if (window.particlesJS) {
     try {
@@ -361,20 +360,20 @@ function initializeParticles() {
  */
 function initializeResponsiveLayout() {
   console.log('初始化响应式布局');
-  
+
   const handleResize = () => {
     const isMobile = window.innerWidth < 768;
-    
+
     // 在移动设备上应用特定的样式
     if (isMobile) {
       document.querySelectorAll('.flex-col-mobile').forEach(el => {
         el.style.flexDirection = 'column';
       });
-      
+
       document.querySelectorAll('.text-center-mobile').forEach(el => {
         el.style.textAlign = 'center';
       });
-      
+
       document.querySelectorAll('.mb-4-mobile').forEach(el => {
         el.style.marginBottom = '1rem';
       });
@@ -383,20 +382,20 @@ function initializeResponsiveLayout() {
       document.querySelectorAll('.flex-col-mobile').forEach(el => {
         el.style.flexDirection = '';
       });
-      
+
       document.querySelectorAll('.text-center-mobile').forEach(el => {
         el.style.textAlign = '';
       });
-      
+
       document.querySelectorAll('.mb-4-mobile').forEach(el => {
         el.style.marginBottom = '';
       });
     }
   };
-  
+
   // 初始调用
   handleResize();
-  
+
   // 监听窗口大小变化
   window.addEventListener('resize', handleResize);
 }
@@ -477,7 +476,7 @@ console.assert(typeof initializeParticles === 'function', 'initializeParticles f
     timer = setInterval(next, 4000);
   }
 
-  document.addEventListener('DOMContentLoaded', function() {
+  document.addEventListener('DOMContentLoaded', function () {
     if (!document.getElementById('project-carousel')) return;
     document.getElementById('carousel-prev').onclick = prev;
     document.getElementById('carousel-next').onclick = next;
