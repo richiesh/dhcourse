@@ -416,36 +416,71 @@ console.assert(typeof initializeParticles === 'function', 'initializeParticles f
 
 // ================== 项目图片轮播 ==================
 (function initializeProjectCarousel() {
-  const images = [
-    'images/微信图片_20250618015618.png',
-    'images/微信图片_20250618015601.png',
-    'images/微信图片_20250618015552.png',
-    'images/微信图片_20250618015544.png',
-    'images/微信图片_20250618015539.png',
-    'images/微信图片_20250618015533.png',
-    'images/微信图片_20250618015523.png',
-    'images/微信图片_20250618015516.png',
-    'images/微信图片_20250618015508.png',
-    'images/微信图片_20250618015503.png',
-    'images/微信图片_20250618015455.png',
-    'images/微信图片_20250618015451.png',
-    'images/微信图片_20250618015439.png',
-    'images/微信图片_20250618015431.png',
-    'images/微信图片_20250618015414.png',
-    'images/微信图片_20250618015407.png',
-    'images/微信图片_20250618015402.png',
-    'images/微信图片_20250618015353.png',
-    'images/微信图片_20250618015343.png',
-    'images/微信图片_20250618015329.png',
-    'images/微信图片_20250618015254.png',
+  // 定义轮播内容，支持图片和视频
+  const items = [
+    // 新增的视频案例
+    {
+      type: 'video',
+      src: 'videos/xu_xia_ke.mp4',
+      title: '徐霞客 — 时空·事件·情感 行迹图'
+    },
+    // 原有的图片
+    { type: 'image', src: 'images/微信图片_20250618015618.png' },
+    { type: 'image', src: 'images/微信图片_20250618015601.png' },
+    { type: 'image', src: 'images/微信图片_20250618015552.png' },
+    { type: 'image', src: 'images/微信图片_20250618015544.png' },
+    { type: 'image', src: 'images/微信图片_20250618015539.png' },
+    { type: 'image', src: 'images/微信图片_20250618015533.png' },
+    { type: 'image', src: 'images/微信图片_20250618015523.png' },
+    { type: 'image', src: 'images/微信图片_20250618015516.png' },
+    { type: 'image', src: 'images/微信图片_20250618015508.png' },
+    { type: 'image', src: 'images/微信图片_20250618015503.png' },
+    { type: 'image', src: 'images/微信图片_20250618015455.png' },
+    { type: 'image', src: 'images/微信图片_20250618015451.png' },
+    { type: 'image', src: 'images/微信图片_20250618015439.png' },
+    { type: 'image', src: 'images/微信图片_20250618015431.png' },
+    { type: 'image', src: 'images/微信图片_20250618015414.png' },
+    { type: 'image', src: 'images/微信图片_20250618015407.png' },
+    { type: 'image', src: 'images/微信图片_20250618015402.png' },
+    { type: 'image', src: 'images/微信图片_20250618015353.png' },
+    { type: 'image', src: 'images/微信图片_20250618015343.png' },
+    { type: 'image', src: 'images/微信图片_20250618015329.png' },
+    { type: 'image', src: 'images/微信图片_20250618015254.png' },
   ];
+
   let current = 0;
   let timer = null;
 
-  function showImage(idx) {
-    const img = document.getElementById('carousel-image');
-    if (!img) return;
-    img.src = images[idx];
+  function showItem(idx) {
+    const imgElement = document.getElementById('carousel-image');
+    const videoElement = document.getElementById('carousel-video');
+
+    if (!imgElement || !videoElement) return;
+
+    const item = items[idx];
+
+    // 暂停视频（如果之前在播放）
+    videoElement.pause();
+
+    if (item.type === 'video') {
+      // 显示视频，隐藏图片
+      imgElement.classList.add('hidden');
+      videoElement.classList.remove('hidden');
+
+      // 更新视频源（仅当源改变时，避免闪烁）
+      // 注意：直接修改src可能导致闪烁，这里简化处理
+      if (!videoElement.src.endsWith(item.src)) {
+        videoElement.src = item.src;
+      }
+    } else {
+      // 显示图片，隐藏视频
+      videoElement.classList.add('hidden');
+      imgElement.classList.remove('hidden');
+
+      imgElement.src = item.src;
+      imgElement.alt = item.title || "项目图片";
+    }
+
     updateIndicators(idx);
   }
 
@@ -453,34 +488,65 @@ console.assert(typeof initializeParticles === 'function', 'initializeParticles f
     const indicators = document.getElementById('carousel-indicators');
     if (!indicators) return;
     indicators.innerHTML = '';
-    images.forEach((_, i) => {
+
+    // 只显示前5个和当前相关的点，或者是全部点？由于图片很多，显示全部点可能会挤
+    // 这里保持原有逻辑显示所有点，但样式上可能需要优化如果点太多
+    // 为避免过多点，这里可以限制显示数量，或者简单地全部显示但缩小尺寸
+
+    items.forEach((_, i) => {
       const dot = document.createElement('span');
+      // 指示器样式
       dot.className = 'w-3 h-3 rounded-full cursor-pointer transition-all ' + (i === idx ? 'bg-tech-cyan shadow-tech' : 'bg-apple-gray opacity-60');
-      dot.onclick = () => { current = i; showImage(current); resetTimer(); };
+      dot.onclick = () => {
+        current = i;
+        showItem(current);
+        resetTimer();
+      };
       indicators.appendChild(dot);
     });
   }
 
   function prev() {
-    current = (current - 1 + images.length) % images.length;
-    showImage(current);
+    current = (current - 1 + items.length) % items.length;
+    showItem(current);
     resetTimer();
   }
+
   function next() {
-    current = (current + 1) % images.length;
-    showImage(current);
+    current = (current + 1) % items.length;
+    showItem(current);
     resetTimer();
   }
+
   function resetTimer() {
     if (timer) clearInterval(timer);
+
+    // 如果当前是视频且正在播放，则不启动自动轮播
+    const videoElement = document.getElementById('carousel-video');
+    if (items[current].type === 'video' && videoElement && !videoElement.paused) {
+      return;
+    }
+
     timer = setInterval(next, 4000);
   }
 
   document.addEventListener('DOMContentLoaded', function () {
     if (!document.getElementById('project-carousel')) return;
+
     document.getElementById('carousel-prev').onclick = prev;
     document.getElementById('carousel-next').onclick = next;
-    showImage(current);
+
+    const videoElement = document.getElementById('carousel-video');
+    if (videoElement) {
+      // 视频播放时停止轮播，暂停或结束时恢复
+      videoElement.addEventListener('play', () => {
+        if (timer) clearInterval(timer);
+      });
+      videoElement.addEventListener('pause', resetTimer);
+      videoElement.addEventListener('ended', next); // 视频结束后自动下一页
+    }
+
+    showItem(current);
     resetTimer();
   });
 })();
